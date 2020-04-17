@@ -1,7 +1,7 @@
 plugins {
     java
     application
-    kotlin("jvm") version "1.3.71"
+    kotlin("jvm") version "1.3.72"
 }
 
 group = "alexandru.balan.blush.lang"
