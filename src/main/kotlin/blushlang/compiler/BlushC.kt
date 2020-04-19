@@ -2,6 +2,7 @@ package blushlang.compiler
 
 import blushlang.handlers.ExtraArgsHandler
 import java.io.File
+import kotlin.system.exitProcess
 
 private lateinit var inputFile : File
 
@@ -14,11 +15,13 @@ fun main (arguments : Array<String>) {
         inputFile = ExtraArgsHandler.inputFile
     }
 
-    inputFile.forEachLine { line -> line.split(Regex(" ")).forEach { println(it) } }
-
     Evaluator.inputFile = inputFile
-    println(Evaluator.evaluate())
+    val validity = Evaluator.evaluate()
 
-    Executor.concepts = Evaluator.concepts
-    Executor.execute()
+    if (validity) {
+        Executor.concepts = Evaluator.concepts
+        Executor.execute()
+    } else {
+        exitProcess(-1)
+    }
 }
