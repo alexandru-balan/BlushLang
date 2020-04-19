@@ -19,7 +19,7 @@ class FileConcept(private val line : String, private val lineNo : Int) : Abstrac
         return false
     }
 
-    override fun execute() {
+    override fun execute(mode: String?) {
         TODO("Not yet implemented")
     }
 }

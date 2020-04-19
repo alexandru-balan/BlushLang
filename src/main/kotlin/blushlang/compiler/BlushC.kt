@@ -18,4 +18,7 @@ fun main (arguments : Array<String>) {
 
     Evaluator.inputFile = inputFile
     println(Evaluator.evaluate())
+
+    Executor.concepts = Evaluator.concepts
+    Executor.execute()
 }

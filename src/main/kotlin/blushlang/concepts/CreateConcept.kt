@@ -28,6 +28,6 @@ class CreateConcept(private val line : String, private val lineNo : Int) : Abstr
     }
 
     override fun execute(mode: String?) {
-        dependencies[dependencyNo]?.execute()
+        dependencies[dependencyNo]?.execute("create")
     }
 }

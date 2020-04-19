@@ -5,7 +5,7 @@ plugins {
 }
 
 group = "alexandru.balan.blush.lang"
-version = "2020.alpha.1"
+version = "2020.alpha.2"
 
 application {
     mainClassName = "blushlang.compiler.BlushCKt"
