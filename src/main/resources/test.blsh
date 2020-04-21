@@ -1,2 +1,4 @@
 create folder 'testGround2' in "./testGround/"
-create file "testFile." in "./testGround/testGround2/"
+create file "testFile.blsh" in "./testGround/testGround2/"
+delete file "testFile.blsh" from "./testGround/testGround2/"
+delete folder 'testGround2' from "./testGround/"

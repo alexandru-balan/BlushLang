@@ -1,11 +1,15 @@
 package blushlang.concepts
 
-class ConceptFactory private constructor(){
+import blushlang.compiler.RootConceptsRegistrar
+
+
+class ConceptFactory private constructor() {
 
     companion object {
-        fun create(keyword : String, line : String, lineNo : Int) : AbstractConcept? {
-            when (keyword) {
-                "create" -> return CreateConcept(line, lineNo)
+        fun create(keyword: String, line: String, lineNo: Int): AbstractConcept? {
+            return when (keyword) {
+                RootConceptsRegistrar.CREATE.alias -> CreateConcept(line, lineNo)
+                RootConceptsRegistrar.REMOVE.alias -> RemoveConcept(line, lineNo)
                 else -> error("Unrecognized concept at line $lineNo: ${line.split(" ")[0]}")
             }
         }

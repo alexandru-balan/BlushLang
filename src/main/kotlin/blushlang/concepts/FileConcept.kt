@@ -1,11 +1,12 @@
 package blushlang.concepts
 
+import blushlang.compiler.RootConceptsRegistrar
 import java.io.File
 
 /**
  * @author Alexandru Balan
  * @since 2020.alpha.2
- * @last_modified 2020.alpha.2
+ * @last_modified 2020.alpha.3
  *
  * The file concept in similar to the folder concept, but the regex that retrieves the file name will check for an extension
  * which is mandatory.
@@ -21,6 +22,9 @@ class FileConcept(private val line: String, private val lineNo: Int) : AbstractC
     private var caseMatched: Int = -1
     private var matchedPath: String = ""
     private var result: Boolean = false
+
+    // Parent mechanism
+    var parent: String = ""
 
     init {
         super.alias = "file"
@@ -53,7 +57,7 @@ class FileConcept(private val line: String, private val lineNo: Int) : AbstractC
         }
 
         return line
-                .replace("create file", "")
+                .replace("$parent file", "")
                 .trim()
                 .split(" ")[0]
                 .replace("['\"]".toRegex(), "")
@@ -64,7 +68,7 @@ class FileConcept(private val line: String, private val lineNo: Int) : AbstractC
 
         when (mode) {
 
-            "create" -> {
+            RootConceptsRegistrar.CREATE.alias -> {
                 if (caseMatched != -1) {
                     when (caseMatched) {
                         1 -> result = File("$matchedPath/$fileName").createNewFile()
@@ -73,6 +77,14 @@ class FileConcept(private val line: String, private val lineNo: Int) : AbstractC
                 }
             }
 
+            RootConceptsRegistrar.REMOVE.alias -> {
+                if (caseMatched != -1) {
+                    when (caseMatched) {
+                        1 -> File("$matchedPath/$fileName").delete()
+                        2 -> File("./$fileName").delete()
+                    }
+                }
+            }
         }
     }
 }
