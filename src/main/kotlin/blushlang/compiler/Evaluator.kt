@@ -7,7 +7,7 @@ import java.io.File
 /**
  * @author Alexandru Balan
  * @since 2020.alpha.1
- * @last_modified 2020.alpha.2
+ * @last_modified 2020.alpha.3
  *
  * This is an object of the compiler that evaluates the validity of the Blush script. It will also save a list of all the
  * created concepts. This way the Executor won't have to recreate the concepts, and we can also save valuable data in
@@ -22,9 +22,14 @@ object Evaluator {
         var index = 0
         inputFile.forEachLine { it ->
             index++
-            val keyword = it.split(" ")[0]
-            val newConcept = ConceptFactory.create(keyword, it, index).also { concept -> concepts.add(concept) }
-            val lineValidity = newConcept?.evaluate()
+            val lineValidity: Boolean?
+            lineValidity = if (it.isBlank()) {
+                true
+            } else {
+                val keyword = it.split(" ")[0]
+                val newConcept = ConceptFactory.create(keyword, it, index).also { concept -> concepts.add(concept) }
+                newConcept?.evaluate()
+            }
             if (lineValidity == false) {
                 error("Error at line $index: $it")
             }
