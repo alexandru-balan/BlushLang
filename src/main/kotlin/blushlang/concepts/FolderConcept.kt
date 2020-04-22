@@ -1,6 +1,7 @@
 package blushlang.concepts
 
 import blushlang.compiler.RootConceptsRegistrar
+import blushlang.compiler.WorkingDirectory
 import java.io.File
 
 /**
@@ -73,8 +74,8 @@ class FolderConcept(private val line: String, private val lineNo: Int) : Abstrac
             RootConceptsRegistrar.CREATE.alias -> {
                 if (caseMatched != -1) {
                     when (caseMatched) {
-                        1 -> result = File("$matchedPath/$name").mkdirs()
-                        2 -> result = File(name).mkdir()
+                        1 -> result = File("$WorkingDirectory/$matchedPath/$name").mkdirs()
+                        2 -> result = File("$WorkingDirectory/$name").mkdir()
                     }
                 }
             }
@@ -82,9 +83,17 @@ class FolderConcept(private val line: String, private val lineNo: Int) : Abstrac
             RootConceptsRegistrar.REMOVE.alias -> {
                 if (caseMatched != -1) {
                     when (caseMatched) {
-                        1 -> result = File("$matchedPath/$name").deleteRecursively()
-                        2 -> result = File(name).deleteRecursively()
+                        1 -> result = File("$WorkingDirectory/$matchedPath/$name").deleteRecursively()
+                        2 -> result = File("$WorkingDirectory/$name").deleteRecursively()
                     }
+                }
+            }
+
+            RootConceptsRegistrar.NAVIGATE.alias -> {
+                if (caseMatched == 1) {
+                    WorkingDirectory = File(matchedPath).absolutePath
+                } else {
+                    error("No path found for navigation at line $lineNo: $line")
                 }
             }
         }

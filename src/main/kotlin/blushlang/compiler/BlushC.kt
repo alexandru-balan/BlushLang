@@ -8,20 +8,25 @@ private lateinit var inputFile : File
 
 fun main (arguments : Array<String>) {
 
+    WorkingDirectory = System.getProperty("user.dir")
+
     ExtraArgsHandler.arguments = arguments
     ExtraArgsHandler.handle()
 
     if (ExtraArgsHandler.hasInputFile) {
         inputFile = ExtraArgsHandler.inputFile
-    }
 
-    Evaluator.inputFile = inputFile
-    val validity = Evaluator.evaluate()
+        Evaluator.inputFile = inputFile
+        val validity = Evaluator.evaluate()
 
-    if (validity) {
-        Executor.concepts = Evaluator.concepts
-        Executor.execute()
+        if (validity) {
+            Executor.concepts = Evaluator.concepts
+            Executor.execute()
+        } else {
+            exitProcess(-1)
+        }
     } else {
-        exitProcess(-1)
+        println("No input file detected")
     }
+
 }

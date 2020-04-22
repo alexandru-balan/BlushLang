@@ -10,6 +10,7 @@ class ConceptFactory private constructor() {
             return when (keyword) {
                 RootConceptsRegistrar.CREATE.alias -> CreateConcept(line, lineNo)
                 RootConceptsRegistrar.REMOVE.alias -> RemoveConcept(line, lineNo)
+                RootConceptsRegistrar.NAVIGATE.alias -> NavigationConcept(line, lineNo)
                 else -> error("Unrecognized concept at line $lineNo: ${line.split(" ")[0]}")
             }
         }

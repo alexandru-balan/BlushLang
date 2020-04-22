@@ -1,6 +1,7 @@
 package blushlang.concepts
 
 import blushlang.compiler.RootConceptsRegistrar
+import blushlang.compiler.WorkingDirectory
 import java.io.File
 
 /**
@@ -71,8 +72,8 @@ class FileConcept(private val line: String, private val lineNo: Int) : AbstractC
             RootConceptsRegistrar.CREATE.alias -> {
                 if (caseMatched != -1) {
                     when (caseMatched) {
-                        1 -> result = File("$matchedPath/$fileName").createNewFile()
-                        2 -> result = File("./$fileName").createNewFile()
+                        1 -> result = File("$WorkingDirectory/$matchedPath/$fileName").createNewFile()
+                        2 -> result = File("$WorkingDirectory/$fileName").createNewFile()
                     }
                 }
             }
@@ -80,8 +81,8 @@ class FileConcept(private val line: String, private val lineNo: Int) : AbstractC
             RootConceptsRegistrar.REMOVE.alias -> {
                 if (caseMatched != -1) {
                     when (caseMatched) {
-                        1 -> File("$matchedPath/$fileName").delete()
-                        2 -> File("./$fileName").delete()
+                        1 -> File("$WorkingDirectory/$matchedPath/$fileName").delete()
+                        2 -> File("$WorkingDirectory/$fileName").delete()
                     }
                 }
             }
