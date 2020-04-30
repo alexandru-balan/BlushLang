@@ -1,1 +1,11 @@
-create folder 'testGround2' in here
+create folder 'testGround2' in "./testGround/"
+create file "testFile.blsh" at './testGround/testGround2/'
+delete file "testFile.blsh" from "./testGround/testGround2/"
+delete folder 'testGround2' from "./testGround/"
+
+create folder "testGround3" in "./testGround/"
+create file "testFile.blsh" in "./testGround/testGround3/"
+
+navigate to "./testGround/testGround3/"
+create file "testFile2.txt" in here
+
